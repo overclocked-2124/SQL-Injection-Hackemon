@@ -82,6 +82,17 @@ async function seed(db) {
   const count = await db.get('SELECT COUNT(*) as c FROM pokemon');
   if (count.c > 0) return; // already seeded
 
+  // Helper function to shuffle an array
+  function shuffle(array) {
+    let currentIndex = array.length, randomIndex;
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+    return array;
+  }
+
   const pokemonData = [
     // Kanto Starters
     { name: 'bulbasaur', description: 'A Grass/Poison type seed Pokémon.', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png' },
@@ -134,29 +145,46 @@ async function seed(db) {
     { name: 'kadabra', description: 'A Psychic type Psi Pokémon.', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/64.png' },
     { name: 'alakazam', description: 'A Psychic type Psi Pokémon.', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/65.png' },
     
-    // Red herrings (fake flags)
-    { name: 'rocket_flag', description: 'You thought it was that easy? Nice try! Check this out: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvd1YvSryfI0CUG8H6qOM_rhmIDL45TTeaAA&s', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/109.png' },
-    { name: 'missingno', description: 'Glitched Pokémon. Nothing to see here... or is there? https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvd1YvSryfI0CUG8H6qOM_rhmIDL45TTeaAA&s', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png' },
-    { name: 'giovanni_secret', description: 'The boss is very careful. His secret is here: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvd1YvSryfI0CUG8H6qOM_rhmIDL45TTeaAA&s', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/52.png' },
+    // Red herrings (fake flags) - a mix of GitHub links and fake encrypted data
+    { name: 'rocket_flag', description: 'Team Rocket\'s real treasure is at https://github.com/overclocked-2124', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/109.png' },
+    { name: 'missingno', description: 'Glitched Pokémon... or a link to more challenges? https://github.com/overclocked-2124', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png' },
+    { name: 'giovanni_secret', description: 'The boss\'s secret is safe at https://github.com/overclocked-2124', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/52.png' },
     { name: 'admin_pass', description: 'Password stored in a secure location: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvd1YvSryfI0CUG8H6qOM_rhmIDL45TTeaAA&s', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/81.png' },
     { name: 'secret_backup', description: 'All important data is backed up at: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvd1YvSryfI0CUG8H6qOM_rhmIDL45TTeaAA&s', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/137.png' },
-    { name: 'team_rocket', description: 'Team Rocket blasts off at the speed of light! Surrender now or prepare to fight! https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvd1YvSryfI0CUG8H6qOM_rhmIDL45TTeaAA&s', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/109.png' },
+    { name: 'team_rocket', description: 'Team Rocket blasts off to https://github.com/overclocked-2124', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/109.png' },
     { name: 'jessie_james', description: 'Prepare for trouble! And make it double! https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvd1YvSryfI0CUG8H6qOM_rhmIDL45TTeaAA&s', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/52.png' },
-    { name: 'hidden_treasure', description: 'X marks the spot! Find your treasure here: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvd1YvSryfI0CUG8H6qOM_rhmIDL45TTeaAA&s', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/54.png' },
+    { name: 'hidden_treasure', description: 'X marks the spot! Find your treasure at https://github.com/overclocked-2124', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/54.png' },
     { name: 'secret_entrance', description: 'The entrance to the secret base is at: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvd1YvSryfI0CUG8H6qOM_rhmIDL45TTeaAA&s', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/92.png' },
-    { name: 'confidential', description: 'For your eyes only: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvd1YvSryfI0CUG8H6qOM_rhmIDL45TTeaAA&s', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/66.png' },
+    { name: 'confidential', description: 'For your eyes only: https://github.com/overclocked-2124', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/66.png' },
     { name: 'top_secret', description: 'TOP SECRET - DO NOT SHARE: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvd1YvSryfI0CUG8H6qOM_rhmIDL45TTeaAA&s', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/74.png' },
     { name: 'classified', description: 'CLASSIFIED INFORMATION: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvd1YvSryfI0CUG8H6qOM_rhmIDL45TTeaAA&s', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/79.png' },
     
-    // The actual flag (hidden via SQLi)
-    { name: 'flag', description: 'CTF{gotta_catch_all_the_queries}', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/151.png' },
+    // Hoenn Starters
+    { name: 'treecko', description: 'A Grass type Wood Gecko Pokémon.', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/252.png' },
+    { name: 'grovyle', description: 'The evolved form of Treecko.', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/253.png' },
+    { name: 'sceptile', description: 'The final evolution of Treecko.', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/254.png' },
+    { name: 'torchic', description: 'A Fire type Chick Pokémon.', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/255.png' },
+    { name: 'combusken', description: 'The evolved form of Torchic.', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/256.png' },
+    { name: 'blaziken', description: 'The final evolution of Torchic.', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/257.png' },
+    { name: 'mudkip', description: 'A Water type Mud Fish Pokémon.', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/258.png' },
+    { name: 'marshtomp', description: 'The evolved form of Mudkip.', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/259.png' },
+    { name: 'swampert', description: 'The final evolution of Mudkip.', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/260.png' },
+
+    // More Red Herrings
+    { name: 'ditto_clue', description: 'Ditto transformed into a hint! Find it at https://github.com/overclocked-2124', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png' },
+    { name: 'shuckle_secret', description: 'Don\'t mess with the Shuckle... unless you want this: https://github.com/overclocked-2124', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/213.png' },
+    { name: 'bidoof_blessing', description: 'Bidoof, the true HM slave, carries a secret to https://github.com/overclocked-2124', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/399.png' },
+
+    // The actual flag (hidden via SQLi) - points to GitHub profile
+    { name: 'flag', description: 'Congratulations! You found the real flag! Follow @overclocked-2124 on GitHub (https://github.com/overclocked-2124) for more challenges! Flag: https://tinyurl.com/yv6cyu46', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/151.png' },
   ];
 
   // Insert all Pokémon in a transaction for better performance
   await db.exec('BEGIN TRANSACTION');
   const stmt = await db.prepare('INSERT INTO pokemon (name, description, image_url) VALUES (?, ?, ?)');
   
-  for (const p of pokemonData) {
+    const shuffledData = shuffle(pokemonData);
+  for (const p of shuffledData) {
     await stmt.run(p.name, p.description, p.image_url);
   }
   
