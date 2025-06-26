@@ -145,6 +145,19 @@ async function seed(db) {
     { name: 'kadabra', description: 'A Psychic type Psi Pokémon.', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/64.png' },
     { name: 'alakazam', description: 'A Psychic type Psi Pokémon.', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/65.png' },
     
+    // New red herring with W3Schools link
+    { name: 'ekans', description: 'A Poison type Snake Pokémon. It seems to be hiding a code snippet: https://www.w3schools.com/code/tryit.asp?filename=GL3DXQD5BRPJ', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/23.png' },
+    { name: 'arbok', description: 'The evolved form of Ekans. The code is more complex now: https://www.w3schools.com/code/tryit.asp?filename=GL3DXQD5BRPJ', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/24.png' },
+    { name: 'spearow', description: 'A Normal/Flying type Tiny Bird Pokémon. It dropped this link: https://www.w3schools.com/code/tryit.asp?filename=GL3DXQD5BRPJ', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/21.png' },
+    { name: 'fearow', description: 'The evolved form of Spearow. It guards this link fiercely: https://www.w3schools.com/code/tryit.asp?filename=GL3DXQD5BRPJ', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/22.png' },
+
+    // New red herring with Google Slides link
+    { name: 'pidgey', description: 'A Tiny Bird Pokémon. It has a secret message for you: https://docs.google.com/presentation/d/1mCYoEoATJvJ7WIX0fb7eTLYwE6M0r7sQHqDZlG06YVo/present', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/16.png' },
+    { name: 'pidgeotto', description: 'The evolved form of Pidgey. The secret continues here: https://docs.google.com/presentation/d/1mCYoEoATJvJ7WIX0fb7eTLYwE6M0r7sQHqDZlG06YVo/present', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/17.png' },
+    { name: 'pidgeot', description: 'The final evolution of Pidgey. The final clue is here: https://docs.google.com/presentation/d/1mCYoEoATJvJ7WIX0fb7eTLYwE6M0r7sQHqDZlG06YVo/present', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/18.png' },
+    { name: 'rattata', description: 'A Mouse Pokémon. It seems to be guarding this link: https://docs.google.com/presentation/d/1mCYoEoATJvJ7WIX0fb7eTLYwE6M0r7sQHqDZlG06YVo/present', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/19.png' },
+    { name: 'raticate', description: 'The evolved form of Rattata. It\'s more aggressive about guarding this: https://docs.google.com/presentation/d/1mCYoEoATJvJ7WIX0fb7eTLYwE6M0r7sQHqDZlG06YVo/present', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/20.png' },
+
     // Red herrings (fake flags) - a mix of GitHub links and fake encrypted data
     { name: 'rocket_flag', description: 'Team Rocket\'s real treasure is at https://github.com/overclocked-2124', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/109.png' },
     { name: 'missingno', description: 'Glitched Pokémon... or a link to more challenges? https://github.com/overclocked-2124', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png' },
