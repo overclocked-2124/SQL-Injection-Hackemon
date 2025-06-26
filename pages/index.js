@@ -25,7 +25,17 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center min-h-screen p-4 bg-poke-blue font-mono">
-      <div className="w-full max-w-5xl bg-white rounded-lg shadow-lg p-8 mt-8">
+      <div className="relative w-full max-w-5xl bg-poke-red text-white rounded-lg shadow-2xl p-8 mt-8">
+          {/* Pokédex indicator lights */}
+          <div className="absolute top-4 left-4 flex gap-2">
+            <div className="w-6 h-6 bg-white rounded-full border-2 border-gray-300"></div>
+            <div className="w-4 h-4 bg-red-200 rounded-full border-2 border-gray-300"></div>
+            <div className="w-4 h-4 bg-yellow-300 rounded-full border-2 border-gray-300"></div>
+            <div className="w-4 h-4 bg-green-300 rounded-full border-2 border-gray-300"></div>
+          </div>
+
+          {/* Inner "screen" */}
+          <div className="bg-white text-black rounded-lg p-6 mt-8 shadow-inner">
         <h1 className="text-5xl font-bold mb-2 text-center text-poke-yellow" style={{ WebkitTextStroke: '2px #3B4CCA' }}>
           Team Rocket's Pokédex
         </h1>
@@ -71,7 +81,8 @@ export default function Home() {
             </div>
           ))}
         </div>
-      </div>
-    </main>
+          </div>
+        </div>
+      </main>
   );
 }
