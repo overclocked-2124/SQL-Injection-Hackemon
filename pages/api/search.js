@@ -189,7 +189,7 @@ async function seed(db) {
     { name: 'bidoof_blessing', description: 'Bidoof, the true HM slave, carries a secret to https://github.com/overclocked-2124', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/399.png' },
 
     // The actual flag (hidden via SQLi) - points to GitHub profile
-    { name: 'flag', description: 'Congratulations! You found the real flag! Follow @overclocked-2124 on GitHub (https://github.com/overclocked-2124) for more challenges! Flag: https://tinyurl.com/yv6cyu46', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/151.png' },
+    { name: 'flag', description: 'Congratulations! You found the real flag! Follow @overclocked-2124 on GitHub (https://github.com/overclocked-2124) for more challenges! Flag: https://forms.gle/oYeTgXf8AMqdw8th9', image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/151.png' },
   ];
 
   // Insert all Pokémon in a transaction for better performance
