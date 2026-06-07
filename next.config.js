@@ -27,10 +27,8 @@ const nextConfig = {
       },
     ],
   },
-  // Enable server components external packages
-  experimental: {
-    serverComponentsExternalPackages: ['sqlite3', 'sqlite']
-  }
+  // Keep native sqlite packages out of the bundle so they're loaded at runtime
+  serverExternalPackages: ['sqlite3', 'sqlite']
 };
 
 module.exports = nextConfig;
